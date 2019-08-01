@@ -7,39 +7,22 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
 /**
- * JEP 325: Switch Expressions (Preview)
- * 
- * <p>
- * switch式。"JEP 354: Switch Expressions (Preview)" (ターゲットはJava13) に更新された。
- * </p>
- * 
- * <p>
- * 現在はプレビューなので、使用する時は、プレビューを有効にするスイッチをコンパイラに指定する必要がある。
- * Eclipseの場合は、プロジェクト・プロパティのJavaコンパイラにある
- * 「プレビュー機能を有効にする」にチェックを入れればよい。
- * また、プレビュー警告が発生するが、{@code @SuppressWarnings("preview")} で抑制することができる。
- * </p>
- * 
- * <ul>
- * <li>{@code null} を検査することはできない。</li>
- * <li>{@code default} の指定は必須。</li>
- * <li>各ケースは完全に独立しているので、{@code break} は記述しない。</li>
- * <li>複数の値に対応するケースを記述する時は、{@code case} に複数の値をカンマで区切って列挙する。</li>
- * </ul>
+ * JEP 325: Switch Expressions (Preview).
  */
 public class Jep325 {
 
-	/**
-	 * switch式をテストする。
-	 */
+	public static enum Types {
+		FOO, BAR, BAZ
+	}
+
 	@Test
-	public void testSwitchExpressions() {
+	public void testSwitchExpressionsOfInteger() {
 		@SuppressWarnings("preview") Function<Integer, String> tested = arg -> switch (arg) {
-		case 0 -> "zero";
-		case 1 -> "one";
-		case 2 -> "two";
-		case 3, 4, 5, 6, 7, 8, 9 -> "under ten";
-		default -> "other";
+			case 0 -> "zero";
+			case 1 -> "one";
+			case 2 -> "two";
+			case 3, 4, 5, 6, 7, 8, 9 -> "under ten";
+			default -> "other";
 		};
 
 		assertEquals("other", tested.apply(-1));
@@ -54,5 +37,18 @@ public class Jep325 {
 		assertEquals("under ten", tested.apply(8));
 		assertEquals("under ten", tested.apply(9));
 		assertEquals("other", tested.apply(10));
+	}
+
+	@Test
+	public void testSwitchExpressionsOfEnum() {
+		@SuppressWarnings("preview") Function<Types, String> tested = arg -> switch (arg) {
+			case FOO -> "ふー";
+			case BAR -> "ばー";
+			case BAZ -> "ばず";
+		};
+
+		assertEquals("ふー", tested.apply(Types.FOO));
+		assertEquals("ばー", tested.apply(Types.BAR));
+		assertEquals("ばず", tested.apply(Types.BAZ));
 	}
 }
