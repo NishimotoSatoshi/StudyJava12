@@ -1,4 +1,4 @@
-package jp.co.opst.s029817.study.java12.api;
+package jp.co.opst.s029817.study.java12.issue;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
-public class CompactNumberFormatTest {
+public class Jdk8188147 {
 
 	@Test
 	public void whenUsShort() {
