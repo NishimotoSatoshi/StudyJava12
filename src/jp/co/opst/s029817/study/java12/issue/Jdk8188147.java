@@ -7,6 +7,9 @@ import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * JDK-8188147: Compact Number Formatting support.
+ */
 public class Jdk8188147 {
 
 	@Test
