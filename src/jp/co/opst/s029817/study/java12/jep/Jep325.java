@@ -16,7 +16,31 @@ public class Jep325 {
 	}
 
 	@Test
-	public void testSwitchExpressionsOfInteger() {
+	public void testSwitchExpressionsWithoutArrow() {
+		@SuppressWarnings("preview") Function<Integer, String> tested = arg -> switch (arg) {
+			case 0: break "zero";
+			case 1: break "one";
+			case 2: break "two";
+			case 3, 4, 5, 6, 7, 8, 9: break "under ten";
+			default: break "other";
+		};
+
+		assertEquals("other", tested.apply(-1));
+		assertEquals("zero", tested.apply(0));
+		assertEquals("one", tested.apply(1));
+		assertEquals("two", tested.apply(2));
+		assertEquals("under ten", tested.apply(3));
+		assertEquals("under ten", tested.apply(4));
+		assertEquals("under ten", tested.apply(5));
+		assertEquals("under ten", tested.apply(6));
+		assertEquals("under ten", tested.apply(7));
+		assertEquals("under ten", tested.apply(8));
+		assertEquals("under ten", tested.apply(9));
+		assertEquals("other", tested.apply(10));
+	}
+
+	@Test
+	public void testSwitchExpressionsWithArrow() {
 		@SuppressWarnings("preview") Function<Integer, String> tested = arg -> switch (arg) {
 			case 0 -> "zero";
 			case 1 -> "one";
