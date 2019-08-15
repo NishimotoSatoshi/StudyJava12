@@ -23,8 +23,7 @@ public class Jdk8209685 {
 
 	@Test
 	public void testCollectorsTeeing() {
-
-		var result =  IntStream.range(0, 10).boxed().collect(Collectors.teeing(
+		var result = IntStream.range(0, 10).boxed().collect(Collectors.teeing(
 				Collectors.filtering(t -> t % 2 == 0, Collectors.toUnmodifiableSet()),
 				Collectors.filtering(t -> t % 2 != 0, Collectors.toUnmodifiableSet()),
 				Result::new));
